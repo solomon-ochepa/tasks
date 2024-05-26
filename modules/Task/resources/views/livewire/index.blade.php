@@ -5,25 +5,15 @@
                 <div class="mb-3 flex items-center justify-between border-b py-4 text-gray-900 dark:text-gray-100">
                     <h2 class="text-xl font-bold">{{ __('Tasks') }}</h2>
 
-                    <div class="hidden sm:block">
-                        <nav>
-                            <ul class="flex space-x-4">
-                                <li>
-                                    <a @click="open = true" class="" href="javascript://#" type="button"><i
-                                            aria-hidden="true" class="fa fa-plus-circle"></i></a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-
-                    <div class="sm:hidden">
-                        <button class="block text-gray-600 hover:text-gray-900 focus:outline-none" type="button">
-                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path d="M4 6h16M4 12h16m-7 6h7" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2"></path>
-                            </svg>
-                        </button>
-                    </div>
+                    <nav>
+                        <ul class="flex space-x-4">
+                            <li>
+                                <a @click="open = true" class="" href="javascript://#" type="button">
+                                    <i aria-hidden="true" class="fa fa-plus-circle fa-xl"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
 
                 <ul class="space-y-3">
