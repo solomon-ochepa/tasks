@@ -12,7 +12,7 @@ class CreateTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:32'],
+            'name' => ['required', 'string', 'max:32', $this->id ? "unique:tasks,name,{$this->id},id" : 'unique:tasks,name'],
             'priority' => ['nullable', 'integer', 'min:0'],
         ];
     }
