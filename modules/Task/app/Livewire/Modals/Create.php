@@ -4,6 +4,7 @@ namespace Modules\Task\App\Livewire\Modals;
 
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Modules\Project\App\Models\Project;
 use Modules\Task\App\Http\Requests\CreateTaskRequest;
 use Modules\Task\App\Models\Task;
 
@@ -11,15 +12,20 @@ class Create extends Component
 {
     public $task;
 
-    #[Validate]
-    public $name;
+    public $projects;
 
-    public $priority;
+    #[Validate]
+    public array $form = [];
 
     protected $listeners = [
         'refresh' => '$refresh',
         'edit.task' => 'edit',
     ];
+
+    public function mount()
+    {
+        $this->projects = Project::all();
+    }
 
     public function render()
     {
@@ -37,8 +43,9 @@ class Create extends Component
     {
         $this->task = $task;
 
-        $this->name = $task->name;
-        $this->priority = $task->priority;
+        $this->form['name'] = $task->name;
+        $this->form['priority'] = $task->priority;
+        $this->form['project_id'] = $task->project_id;
     }
 
     public function save()
@@ -50,23 +57,23 @@ class Create extends Component
 
             session()->flash('status', 'Task updated successfully.');
         } else {
-            Task::firstOrCreate(['name' => $this->name]);
+            Task::firstOrCreate($this->form);
 
             session()->flash('status', 'Task created successfully.');
         }
 
-        $this->dispatch('close');
         $this->close();
         $this->dispatch('refresh');
     }
 
     public function update()
     {
-        $this->task->update(['name' => $this->name, 'priority' => $this->priority]);
+        $this->task->update($this->form);
     }
 
     public function close()
     {
-        $this->reset();
+        $this->dispatch('close');
+        $this->reset('form');
     }
 }

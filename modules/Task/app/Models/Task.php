@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Project\App\Models\Project;
 
 class Task extends Model
 {
@@ -17,10 +18,11 @@ class Task extends Model
     protected $fillable = [
         'name',
         'priority',
+        'project_id',
     ];
 
-    protected static function newFactory()
+    public function project()
     {
-        // return TaskFactory::new();
+        return $this->belongsTo(Project::class);
     }
 }
