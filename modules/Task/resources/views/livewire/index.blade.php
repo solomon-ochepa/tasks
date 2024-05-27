@@ -16,11 +16,12 @@
                     </nav>
                 </div>
 
-                <ul class="space-y-3">
+                <ul class="space-y-3" wire:sortable="sort">
                     @foreach ($tasks as $task)
                         @php $trashed = $task->trashed(); @endphp
-                        <li class="flex items-center justify-between space-x-3">
-                            <div class="flex flex-col items-start">
+                        <li class="flex items-center justify-between space-x-3" wire:key="task-{{ $task->id }}"
+                            wire:sortable.item="{{ $task->id }}">
+                            <div class="flex flex-col items-start" wire:sortable.handle>
                                 <div class="flex items-center space-x-3">
                                     <div class="h-3 w-3 rounded-full bg-blue-500"></div>
                                     <span class="">{{ $task->name }}</span>
