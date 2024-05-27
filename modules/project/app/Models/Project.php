@@ -4,14 +4,14 @@ namespace Modules\Project\App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Task\App\Models\Task;
 
 class Project extends Model
 {
-    use HasFactory, HasUuids, SoftDeletes, Sluggable;
+    use HasFactory, HasUuids, Sluggable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
