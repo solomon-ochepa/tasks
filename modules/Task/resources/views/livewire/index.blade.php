@@ -2,6 +2,7 @@
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
+                {{-- Header --}}
                 <div class="mb-3 flex items-center justify-between border-b py-4 text-gray-900 dark:text-gray-100">
                     <h2 class="text-xl font-bold">{{ __('Tasks') }}</h2>
 
@@ -16,6 +17,30 @@
                     </nav>
                 </div>
 
+                {{-- Search & Filters --}}
+                <div class="mb-4 flex flex-col space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
+                    <input
+                        class="w-full rounded-md border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 sm:w-2/3"
+                        placeholder="{{ __('Search tasks...') }}" type="text"
+                        wire:model.live.debounce.300ms="search" />
+
+                    <select
+                        class="w-full rounded-md border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 sm:w-1/3"
+                        wire:model.live="filter_project">
+                        <option value="">{{ __('All Projects') }}</option>
+                        @foreach ($projects as $project)
+                            <option value="{{ $project->id }}">{{ $project->name }}</option>
+                        @endforeach
+                    </select>
+
+                    <label class="flex items-center space-x-2">
+                        <input class="rounded shadow-sm focus:ring focus:ring-opacity-50" type="checkbox"
+                            wire:model.live="show_trashed" />
+                        <span>{{ __('Trashed') }}</span>
+                    </label>
+                </div>
+
+                {{-- Tasks --}}
                 <ul class="space-y-3" wire:sortable="sort">
                     @foreach ($tasks as $task)
                         @php $trashed = $task->trashed(); @endphp
@@ -45,6 +70,7 @@
                     @endforeach
                 </ul>
 
+                {{-- Pagination --}}
                 {{ $tasks->links() }}
             </div>
         </div>
