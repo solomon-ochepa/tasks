@@ -19,5 +19,6 @@ yarn-error.log
 /.idea
 /.vscode
 temp/
-**/*.zip
 **/*copy.php
+**/*.zip
+**/*.7z
