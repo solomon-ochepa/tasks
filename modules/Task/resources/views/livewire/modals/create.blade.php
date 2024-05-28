@@ -18,8 +18,8 @@
                     </div>
                 </div>
 
-                <div class="flex items-center space-x-3">
-                    <div class="w-3/4 md:w-full">
+                <div class="flex flex-col items-center space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
+                    <div class="w-full sm:w-2/3">
                         <select
                             class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
                             wire:model.blur="form.project_id">
@@ -33,7 +33,7 @@
                         @enderror
                     </div>
 
-                    <div class="w-1/4 lg:w-full">
+                    <div class="w-full sm:w-1/3">
                         <input
                             class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
                             min="0" placeholder="{{ __('Priority') }}" step="1" type="number"
