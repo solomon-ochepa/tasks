@@ -46,4 +46,11 @@ class Index extends Component
     {
         $this->open = false;
     }
+
+    public function sort($sort)
+    {
+        $sort = array_column($sort, 'value', 'order');
+
+        Task::order($sort);
+    }
 }
