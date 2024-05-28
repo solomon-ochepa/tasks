@@ -25,7 +25,7 @@
                             wire:model.blur="form.project_id">
                             <option value="">Select project</option>
                             @foreach ($projects ?? [] as $project)
-                                <option value="{{ $project->slug }}">{{ $project->name }}</option>
+                                <option value="{{ $project->id }}">{{ $project->name }}</option>
                             @endforeach
                         </select>
                         @error('form.project_id')

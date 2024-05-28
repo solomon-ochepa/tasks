@@ -55,16 +55,29 @@
                                     {{ $task->created_at->format('M d, Y H:i') }}</div>
                             </div>
 
+                            {{-- Actions --}}
                             <div class="flex items-center space-x-2">
-                                <button class="text-gray-600 hover:text-gray-900" type="button"
-                                    wire:click="edit(@js($task->id))">
-                                    <i class="fas fa-edit"></i>
-                                </button>
+                                @if ($task->trashed())
+                                    <button class="p-2 text-blue-600 hover:text-blue-900" type="button"
+                                        wire:click="restore(@js($task->id))">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
 
-                                <button class="p-2 text-red-600 hover:text-red-900" type="button"
-                                    wire:click="delete(@js($task->id))">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
+                                    <button class="p-2 text-red-600 hover:text-red-900" type="button"
+                                        wire:click="delete(@js($task->id))">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                @else
+                                    <button class="text-gray-600 hover:text-gray-900" type="button"
+                                        wire:click="edit(@js($task->id))">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+
+                                    <button class="p-2 text-red-600 hover:text-red-900" type="button"
+                                        wire:click="trash(@js($task->id))">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                @endif
                             </div>
                         </li>
                     @endforeach

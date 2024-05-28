@@ -30,7 +30,7 @@ class Index extends Component
     {
         $query = Task::query()
             ->when($this->search, fn ($query) => $query->where('name', 'like', '%' . $this->search . '%'))
-            ->when($this->filter_project, fn ($query) => $query->where('project_id', $this->filter_project))
+            ->when($this->filter_project, fn ($query) => $query->with('project')->where('project_id', $this->filter_project))
             ->when($this->show_trashed, fn ($query) => $query->onlyTrashed())
             ->orderBy('priority')
             ->orderBy('name');
@@ -49,9 +49,27 @@ class Index extends Component
         $this->open = true;
     }
 
-    public function delete(Task $task)
+    public function trash(Task $task)
     {
         $task->delete();
+
+        $this->dispatch('refresh');
+    }
+
+    public function delete($id)
+    {
+        $task = Task::onlyTrashed()->findOrFail($id);
+
+        $task->forceDelete();
+
+        $this->dispatch('refresh');
+    }
+
+    public function restore($id)
+    {
+        $task = Task::onlyTrashed()->findOrFail($id);
+
+        $task->restore();
 
         $this->dispatch('refresh');
     }

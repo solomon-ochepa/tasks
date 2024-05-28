@@ -13,8 +13,8 @@ class CreateTaskRequest extends FormRequest
     {
         return [
             'form.name' => ['required', 'string', 'max:32', $this->id ? "unique:tasks,name,{$this->id},id" : 'unique:tasks,name'],
-            'form.priority' => ['nullable', 'integer', 'min:0'],
-            'form.project_id' => ['nullable', 'string']
+            'form.priority' => ['nullable', 'integer', 'min:1'],
+            'form.project_id' => ['nullable', 'uuid'],
         ];
     }
 

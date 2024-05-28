@@ -3,6 +3,8 @@
 namespace Modules\Task\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
+use Modules\Project\App\Models\Project;
 use Modules\Task\App\Models\Task;
 
 class TaskSeeder extends Seeder
@@ -13,48 +15,20 @@ class TaskSeeder extends Seeder
     public function run(): void
     {
         $tasks = collect([
-            [
-                'name' => 'Complete Project Report',
-                'priority' => 3,
-            ],
-            [
-                'name' => 'Update Client Presentation',
-                'priority' => 2,
-            ],
-            [
-                'name' => 'Plan Marketing Strategy',
-                'priority' => 5,
-            ],
-            [
-                'name' => 'Review Team Performance',
-                'priority' => 1,
-            ],
-            [
-                'name' => 'Schedule Product Launch',
-                'priority' => 4,
-            ],
-            [
-                'name' => 'Organize Workshop Event',
-                'priority' => 2,
-            ],
-            [
-                'name' => 'Analyze Sales Data',
-                'priority' => 3,
-            ],
-            [
-                'name' => 'Update Website Content',
-                'priority' => 1,
-            ],
-            [
-                'name' => 'Develop New Features',
-                'priority' => 4,
-            ],
-            [
-                'name' => 'Conduct User Testing',
-                'priority' => 5,
-            ],
+            ['name' => 'Complete Project Report'],
+            ['name' => 'Update Client Presentation'],
+            ['name' => 'Plan Marketing Strategy'],
+            ['name' => 'Review Team Performance'],
+            ['name' => 'Schedule Product Launch'],
+            ['name' => 'Organize Workshop Event'],
+            ['name' => 'Analyze Sales Data'],
+            ['name' => 'Update Website Content'],
+            ['name' => 'Develop New Features'],
+            ['name' => 'Conduct User Testing'],
         ]);
 
-        $tasks->each(fn ($task) => Task::firstOrCreate($task));
+        $project = Project::firstOrCreate(['name' => 'General']);
+
+        $tasks->each(fn ($task) => Task::firstOrCreate(Arr::add($task, 'project_id', $project->id)));
     }
 }

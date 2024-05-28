@@ -2,6 +2,7 @@
 
 namespace Modules\Task\App\Livewire\Modals;
 
+use Illuminate\Support\Arr;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Modules\Project\App\Models\Project;
@@ -57,7 +58,7 @@ class Create extends Component
 
             session()->flash('status', 'Task updated successfully.');
         } else {
-            Task::firstOrCreate($this->form);
+            Task::firstOrCreate(Arr::only($this->form, ['name', 'project_id']), $this->form);
 
             session()->flash('status', 'Task created successfully.');
         }
